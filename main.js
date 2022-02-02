@@ -10,7 +10,7 @@ const anchorLink = new AnchorLink({
   transport,
   chains: [{
     chainId: 'f16b1833c747c43682f4386fca9cbb327929334a762755ebec17f6f23c9b8a12',
-    nodeUrl: 'http://api.waxtest.alohaeos.com',
+    nodeUrl: 'https://api.waxtest.alohaeos.com',
   }],
 });
 const dapp = "DOVX-STAKING";
@@ -416,7 +416,6 @@ async function GetRates() {
 
   if (body.rows.length != 0) {
     for (let i = 0; i < body.rows.length; i++) {
-      console.log(body.rows[i]);
       let count,total_weight,base_rate=0;
       var daily_pool=parseFloat(body.rows[i].daily_pool)/24;
       console.log(daily_pool);
@@ -425,10 +424,8 @@ async function GetRates() {
       for(let j=0;j<body.rows[i].levels.length;j++)
       {
         count=parseFloat(body.rows[i].levels[j].count);
-      console.log(count);
       totalcount+=count;
-        total_weight=parseFloat(body.rows[i].levels[j].value);
-      console.log(total_weight);
+        total_weight=parseFloat(body.rows[i].levels[j].value)*count;
         totaladd+=total_weight;
       }
       console.log(totaladd);
