@@ -355,6 +355,7 @@ async function GetAssets(colc,rates) {
     method: "POST",
   });
   var rate = 0;
+  var weight=0;
   var base_rate=0;
   const body = await response.json();
   tableRows = GetStakingTableRows();
@@ -373,6 +374,7 @@ async function GetAssets(colc,rates) {
               for (let k = 0; k < rates[j].levels.length; k++) {
                 if (rates[j].levels[k].key == level[n].level) {
                   rate = parseFloat(rates[j].levels[k].value) * rates[j].base_rate;
+                  weight=parseFloat(rates[j].levels[k].value);
                 }
               }
             }
@@ -381,6 +383,7 @@ async function GetAssets(colc,rates) {
             asset_id: data.asset_id,
             img: data.data.img,
             name: data.name,
+            weight:weight,
             rateperday: rate,
           });
         }
@@ -604,10 +607,21 @@ function PopulateMenu(rates,staked, unstakeasset, user, balance) {
     var rate = document.createElement('p');
     rate.className = 'ratesText';
     rate.textContent = unstaked[index].rateperday.toFixed(4);
+    
     var sym = document.createElement('p');
     sym.textContent = symbol +"/H";
     div4.appendChild(rate);div4.appendChild(sym);
     container.appendChild(div4);
+
+    var div5 = document.createElement('div');
+    div4.className = 'ratediv';
+    var weight = document.createElement('p');
+    weight.className = 'textstyle';
+    weight.textContent = "Weight:"+unstaked[index].weight.toFixed(4);
+
+    div5.appendChild(weight);
+    container.appendChild(div5);
+
     items.appendChild(container);
 
     var bar = document.createElement('div');
