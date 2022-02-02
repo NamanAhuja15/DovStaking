@@ -550,6 +550,9 @@ function PopulateMenu(rates,staked, unstakeasset, user, balance) {
     ids.push(parseInt(unstaked[i].asset_id));
   }
   console.log(balance);
+  document.getElementById('totalnfts').innerHTML=rates[0].total_count ;
+  document.getElementById('baserate').innerHTML=rates[0].base_rate;
+
   document.getElementById('stakepwr').innerHTML=user.stakePower + " DOVX/H";
   document.getElementById('stakedcount').innerHTML=staked.length;
   document.getElementById('aname').innerHTML = wallet_userAccount;
